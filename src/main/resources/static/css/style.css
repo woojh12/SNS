@@ -3,35 +3,63 @@
 #wrap
 {
 	width : 1200px;
-	height : 900px;
+	height : 1000px;
 	margin : 0 auto;
 }
 
 header
 {
-	height : 70px;
+	height : 100px;
 }
 
-section
+#banner
 {
-	height : 700px;
+	height : 200px;
 }
 
-section > #noneArea1
+#noneArea
 {
-	width : 100px;
+	height : 75px;
 }
 
-section > #noneArea2
+#responseBtn
 {
-    width : 100px;
+	height : 100px;
 }
 
-section > #realArea
+#main > #noneUse1
 {
-	width : 1000px;
+	width : 300px;
 }
+
+#main > #useArea
+{
+    width : 800px;
+}
+
+#useArea > .idSpace
+{
+	position : relative;
+	left : 170px;
+	color : white;
+}
+
+#main > #noneUse2
+{
+    width : 300px;
+}
+
+#responseBtn > #noneBtn1
+{
+	width : 258px;
+}
+
+#responseBtn > #inputBtn
+{
+	width : 684px;
+}
+
 footer
 {
-	height :  70px;
+	height : 100px;
 }

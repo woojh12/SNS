@@ -8,18 +8,54 @@
 <title>회원가입</title>
 </head>
 <body>
-    <div id="wrap">
+    <div id="wrap" class="bg-dark">
         <header></header>
-        <section class="d-flex">
-            <div id="noneArea1" class="bg-dark"></div>
-            <div id="realArea" class="bg-danger">
-                <div class="title"></div>             
-                <div class="main"></div>             
-                <div class="final"></div>             
+        <div id="banner" class="d-flex justify-content-center align-items-center">
+            <!-- 추후에 배너 달아야함 -->
+            <h1>stargram</h1>
+        </div>
+        <div id="noneArea"></div>
+        <div id="main" class="d-flex">
+            <div id="noneUse1"></div>
+            <div id="useArea">
+                <label class="idSpace mt-3">ID</label><br>
+                <div class="d-flex justify-content-center">
+	                <input type="text" class="form-control col-6">                
+                </div>
+                <label class="idSpace mt-3">Password</label><br>
+                <div class="d-flex justify-content-center">
+                    <input type="password" class="form-control col-6">                
+                </div>
+                <label class="idSpace mt-3">PW Check</label><br>
+                <div class="d-flex justify-content-center">
+                    <input type="password" class="form-control col-6">                
+                </div>
+                <label class="idSpace mt-3">Name</label><br>
+                <div class="d-flex justify-content-center">
+                    <input type="text" class="form-control col-6">                
+                </div>
+                <label class="idSpace mt-3">Phone</label><br>
+                <div class="d-flex justify-content-center">
+                    <input type="text" class="form-control col-6">                
+                </div>
+                <label class="idSpace mt-3">Email</label><br>
+                <div class="d-flex justify-content-center">
+                    <input type="text" class="form-control col-6">                
+                </div>
             </div>
-            <div id="noneArea2" class="bg-dark"></div>
-        </section>
-        <footer class="bg-secondary"></footer>
+            <div id="noneUse2"></div>
+        </div>
+        <div id="responseBtn" class=" d-flex">
+            <div id="noneBtn1"></div>
+            <div id="inputBtn">
+                <button type="button" class="btn btn-secondary btn-block mt-3">회원가입</button>
+            </div>
+        </div>
+        <footer class="logo">
+            <div>
+                <h2 class="mt-3">copyright jh</h2>
+            </div>
+        </footer>
     </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
