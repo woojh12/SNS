@@ -3,7 +3,6 @@
 #wrap
 {
 	width : 1200px;
-	height : 1000px;
 	margin : 0 auto;
 }
 
@@ -49,6 +48,13 @@ header
     width : 300px;
 }
 
+#noneUse2 > .duplicatedId
+{
+	position : relative;
+	top : 47px;
+	right : 150px;
+}
+
 #responseBtn > #noneBtn1
 {
 	width : 258px;
@@ -57,6 +63,18 @@ header
 #responseBtn > #inputBtn
 {
 	width : 684px;
+}
+
+.loginBtn
+{
+	position : relative;
+	left : 170px;
+}
+
+.joinBtn
+{
+	position : relative;
+	left : 340px;
 }
 
 footer

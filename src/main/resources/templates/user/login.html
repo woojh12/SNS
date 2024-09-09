@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layouts/default}">
+        
+   	<section layout:fragment="contents" class="contents bg-dark">
+   		
+        <div id="noneArea"></div>
+        <div id="main" class="d-flex">
+            <div id="noneUse1"></div>
+            <div id="useArea">
+                <label class="idSpace mt-3">ID</label><br>
+                <div class="d-flex justify-content-center">
+	                <input type="text" placeholder="InsertID" class="form-control col-6">                
+                </div>
+                <label class="idSpace mt-3">Password</label><br>
+                <div class="d-flex justify-content-center">
+                    <input type="password" placeholder="InsertPW" class="form-control col-6">                
+                </div>
+            </div>
+            <div id="noneUse2"></div>
+        </div>
+        <div id="responseBtn" class=" d-flex">
+            <div id="noneBtn1"></div>
+            <div id="inputBtn">
+                <button type="button" class="btn btn-secondary mt-4 loginBtn">로그인</button>
+                <button type="button" class="btn btn-secondary mt-4 joinBtn">회원가입</button>
+            </div>
+        </div>
+   	</section>
+    
+</html>
