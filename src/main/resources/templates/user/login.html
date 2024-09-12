@@ -11,11 +11,11 @@
             <div id="useArea">
                 <label class="idSpace mt-3">ID</label><br>
                 <div class="d-flex justify-content-center">
-	                <input type="text" placeholder="InsertID" class="form-control col-6">                
+	                <input type="text" placeholder="InsertID" class="form-control col-6" id="loginIdInput">                
                 </div>
                 <label class="idSpace mt-3">Password</label><br>
                 <div class="d-flex justify-content-center">
-                    <input type="password" placeholder="InsertPW" class="form-control col-6">                
+                    <input type="password" placeholder="InsertPW" class="form-control col-6" id="passwordInput">                
                 </div>
             </div>
             <div id="noneUse2"></div>
@@ -29,4 +29,41 @@
         </div>
    	</section>
     
+    <script layout:fragment="script">
+        $(document).ready(function(){
+        	$(".loginBtn").on("click", function(){
+        		let loginId = $("#loginIdInput").val();
+        		let password = $("#passwordInput").val();
+        		
+        		if(loginId == "")
+        		{
+        			alert("아이디를 입력하세요.");
+        		}
+        		if(password == "")
+        		{
+        			alert("비밀번호를 입력하세요.");
+        		}
+        		
+        		$.ajax({
+        			type:"post"
+        			, url:"/user/login"
+        			, data:{"loginId":loginId, "password":password}
+        		    , success:function(data){
+        		    	if(data.result == "success")
+        		    	{
+        		    		location.href="/post/list";
+        		    	}
+        		    	else
+        		    	{
+        		    		alert("로그인 실패");
+        		    	}
+        		    }
+        		    , error:function()
+        		    {
+        		    	alert("로그인 에러발생");
+        		    }
+        		});
+        	});
+        });
+    </script>
 </html>
