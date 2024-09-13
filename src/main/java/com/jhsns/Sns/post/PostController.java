@@ -12,4 +12,16 @@ public class PostController {
 	{
 		return "post/list";
 	}
+	
+	@GetMapping("/create-view")
+	public String create()
+	{
+		return "post/input";
+	}
+	
+	@GetMapping("/timeline-view")
+	public String timeLine()
+	{
+		return "post/timeline";
+	}
 }
