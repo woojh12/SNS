@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/post")
 @Controller
 public class PostController {
-	@GetMapping("/list")
+	@GetMapping("/list-view")
 	public String list()
 	{
 		return "post/list";
