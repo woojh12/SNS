@@ -4,7 +4,7 @@
         layout:decorate="~{layouts/default}">
         
    	<section layout:fragment="contents" class="contents bg-dark">
-   		
+   		<form id="loginForm">
         <div id="noneArea"></div>
         <div id="main" class="d-flex">
             <div id="noneUse1"></div>
@@ -23,15 +23,18 @@
         <div id="responseBtn" class=" d-flex">
             <div id="noneBtn1"></div>
             <div id="inputBtn">
-                <button type="button" class="btn btn-secondary mt-4 loginBtn">로그인</button>
-                <button type="button" class="btn btn-secondary mt-4 joinBtn">회원가입</button>
+                <button type="submit" class="btn btn-secondary mt-4 loginBtn">로그인</button>
+                <button type="button" class="btn btn-secondary mt-4 joinBtn" onclick="location.href='/user/join-view'">회원가입</button>
             </div>
         </div>
+        </form>
    	</section>
     
     <script layout:fragment="script">
         $(document).ready(function(){
-        	$(".loginBtn").on("click", function(){
+        	$("#loginForm").on("submit", function(e){
+        		e.preventDefault();
+        		
         		let loginId = $("#loginIdInput").val();
         		let password = $("#passwordInput").val();
         		
@@ -51,7 +54,7 @@
         		    , success:function(data){
         		    	if(data.result == "success")
         		    	{
-        		    		location.href="/post/list";
+        		    		location.href="/post/list-view";
         		    	}
         		    	else
         		    	{

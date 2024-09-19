@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="com.jhsns.Sns.post.repository.PostRepository">
+ 	<insert id="insertPost" parameterType="map">
+ 		INSERT INTO
+ 			`postSns`
+ 		(
+ 			`idKey`
+ 			, `userId`
+ 			, `title`
+ 			, `imagePath`
+ 			, `contents`
+ 		)
+ 		VALUE
+ 		(
+ 			#{idKey}
+ 			, #{userId}
+ 			, #{title}
+ 			, #{imagePath}
+ 			, #{contents}
+ 		)
+ 	</insert>
+ 	
+ 	<insert id="insertComment" parameterType="map">
+ 		INSERT INTO
+ 			`comments`
+ 		(
+ 			`userId`
+ 			, `postId`
+ 			, `comments`
+ 		)
+ 		VALUE
+ 		(
+ 			#{userId}
+ 			, #{postId}
+ 			, #{comments}
+ 		)
+
+  	</insert>
+ 	
+ 	<select id="selectAllList" resultType="com.jhsns.Sns.post.domain.Post">
+ 		SELECT 
+ 			`id`
+ 			, `idKey`
+ 			, `userId`
+ 			, `title`
+ 			, `imagePath`
+ 			, `contents`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`postSns`
+ 	</select>
+ 	
+ 	<select id="selectList" parameterType="int" resultType="com.jhsns.Sns.post.domain.Post">
+ 		SELECT 
+ 			`id`
+ 			, `idKey`
+ 			, `userId`
+ 			, `title`
+ 			, `imagePath`
+ 			, `contents`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`postSns`
+ 		WHERE 
+ 			`idKey` = #{idKey}
+ 	</select>
+ 	
+ 	<select id="selectUser" parameterType="map" resultType="com.jhsns.Sns.post.domain.Post">
+ 		SELECT 
+ 			`id`
+ 			, `idKey`
+ 			, `userId`
+ 			, `title`
+ 			, `imagePath`
+ 			, `contents`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`postSns`
+ 		WHERE 
+ 			`idKey` = #{idKey}
+ 		AND
+ 			`title` = #{title}
+ 	</select>
+ 	
+ 	<delete id="deletePost" parameterType="string">
+ 		DELETE
+ 			
+ 		FROM
+ 			`postSns`
+ 		WHERE 
+ 			`title` = #{title}
+ 	</delete>
+ </mapper> 

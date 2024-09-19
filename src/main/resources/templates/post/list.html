@@ -18,29 +18,66 @@
         <section class="d-flex">
             <div id="noneUseList1"></div>
             <div id="myList">
-                <div id="list-show" class="bg-warning d-flex">
-                	<div class="listShow1">
-                		<a href="https://www.naver.com/">
-                			<img width="400px" height="300px" src="https://cdn.pixabay.com/photo/2024/09/05/12/55/white-cheeked-turaco-9024880_640.jpg">
-                		</a>
-                	</div>
-                	<div class="listShow1">
-                		<a href="https://www.naver.com/">
-                			<img width="400px" height="300px" src="https://cdn.pixabay.com/photo/2024/09/05/12/55/white-cheeked-turaco-9024880_640.jpg">
-                		</a>
-                	</div>
-                	<div class="listShow1">
-                		<a href="https://www.naver.com/">
-                			<img width="400px" height="300px" src="https://cdn.pixabay.com/photo/2024/09/05/12/55/white-cheeked-turaco-9024880_640.jpg">
+                <div id="list-show" class="d-flex">
+                	<div th:each="user:${userList}" class="listShow1">
+                		<div th:text="${user.title}"></div>
+                		<input type="checkbox" th:value="${user.title}" name="checkInput"><br>
+                		<a th:href="|/post/timeline-view?idKey=${user.idKey}&title=${user.title}|">
+	                		<img th:src="${user.imagePath}" width="150px" height="150px">                		
                 		</a>
                 	</div>
                 </div>
             </div>
             <div id="noneUseList2"></div>
         </section>
-        <footer class="d-flex justify-content-end mt-3">
-            <button type="button" class="btn btn-secondary btn-lg col-2">삭제</button>
+        <footer class="d-flex justify-content-between mt-5">
+        	<button type="button" class="btn btn-secondary btn-lg col-2" id="allListBtn">전체 게시글</button>
+        	<button type="button" class="btn btn-secondary btn-lg col-2" id="createBtn">게시글 작성</button>
+            <button type="button" class="btn btn-secondary btn-lg col-2" id="deleteBtn">삭제</button>
         </footer>
     </div>
+    
+    <script layout:fragment="script">
+    	$(document).ready(function(){
+    		$("#deleteBtn").on("click", function(){
+    			let name = $("input:checkbox[name='checkInput']").val();
+    			
+    			if(name == "")
+    			{
+    				alert("삭제할 대상의 체크박스를 눌러주세요.");
+    			}
+    			
+    			$.ajax({
+    				type:"post"
+    				, url:"/post/delete"
+    				, data:{"title":name}
+    				, success:function(data)
+    				{
+    					if(data.result == "success")
+    					{
+    						alert("삭제 완료");
+    						location.reload();
+    					}
+    					else
+    					{
+    						alert("삭제 실패");
+    					}
+    				}
+    				, error:function()
+    				{
+    					alert("삭제 에러 발생");
+    				}
+    			});
+    		});
+    		
+    		$("#allListBtn").on("click", function(){
+    			location.href="/post/all-list-view";
+    		});
+    		
+    		$("#createBtn").on("click", function(){
+    			location.href="/post/create-view";
+    		});
+    	});
+    </script>
 </body>
 </html>

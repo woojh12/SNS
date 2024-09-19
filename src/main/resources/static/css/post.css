@@ -7,6 +7,11 @@
 	margin : 0 auto;
 }
 
+#chooseFile
+{
+	display: none;
+}
+
 header
 {
 	height : 150px;
@@ -100,13 +105,25 @@ section > #myList > .commentsList > .otherCommentsList
 
 section > #myList > .commentsList > .otherCommentsList > .otherUser
 {
-	height : 150px;
+	height : 100px;
 }
 
 section > #myList > .commentsList > .otherCommentsList > .otherUser > .otherProfilePicture
 {
-	width : 150px;
+	width : 100px;
 } 
+
+.otherUserName
+{
+	width : 1000px;
+	height : 50px;
+}
+
+.otherUsercomments
+{
+	width : 1000px;
+	height : 50px;
+}
 
 section > #myList > .commentsInput
 {

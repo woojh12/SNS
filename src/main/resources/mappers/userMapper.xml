@@ -5,7 +5,7 @@
  <mapper namespace="com.jhsns.Sns.user.repository.UserRepository">
  	<insert id="insertUser" parameterType="map">
  		INSERT INTO
- 			`user`
+ 			`userSns`
  		(
  			`loginId`
  			, `password`
@@ -34,7 +34,7 @@
  	      , `createdAt`
  	      , `updatedAt`
  	  FROM
- 	      `user`
+ 	      `userSns`
  	  WHERE
  	      `loginId` = #{loginId}
  	      AND
