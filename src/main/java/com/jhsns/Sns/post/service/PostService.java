@@ -1,5 +1,6 @@
 package com.jhsns.Sns.post.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,16 +9,22 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.jhsns.Sns.common.FileManager;
 import com.jhsns.Sns.post.domain.Post;
+import com.jhsns.Sns.post.dto.CardView;
 import com.jhsns.Sns.post.repository.PostRepository;
+import com.jhsns.Sns.user.domain.User;
+import com.jhsns.Sns.user.service.UserService;
 
 @Service
 public class PostService {
 	private PostRepository postRepository;
+	private UserService userService;
 	
 	@Autowired
-	public PostService(PostRepository postRepository)
+	public PostService(PostRepository postRepository
+			, UserService userService)
 	{
 		this.postRepository = postRepository;
+		this.userService = userService;
 	}
 	
 	public int addPost(int idKey, String userId, String title, MultipartFile file, String contents)
@@ -33,10 +40,37 @@ public class PostService {
 		return postRepository.insertComment(postId, userId, comments);
 	}
 	
+	// DTO 게시글 정보 가져오기 작성해야함 - 타임라인 기능
+	public List<CardView> getPostList()
+	{
+		List<Post> postList = postRepository.selectAllList();
+		List<CardView> cardViewList = new ArrayList<>();
+		
+		for(Post post:postList)
+		{
+			int userId = post.getIdKey();
+			User user = userService.getUserById(userId);
+			
+			CardView cardView = new CardView();
+			cardView.setPostId(post.getId());
+			cardView.setUserId(user.getId());
+			cardView.setComments(post.getContents());
+			cardView.setImagePath(post.getImagePath());
+			cardView.setTitle(post.getTitle());
+			
+			cardViewList.add(cardView);
+		}
+		
+		return cardViewList;
+	}
+	
+	// 삭제 테스트 마무리 단계때
+	/*
 	public List<Post> getAllList()
 	{
 		return postRepository.selectAllList();
 	}
+	*/
 	
 	public List<Post> getUserList(int idKey)
 	{

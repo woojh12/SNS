@@ -53,12 +53,11 @@ public class PostRestController {
 	
 	// 댓글 API
 	@PostMapping("/create-comment")
-	public Map<String, String> createComment(
-			 @RequestParam("comments") String comments
+	public Map<String, String> createComment(@RequestParam("postId") int postId
+			, @RequestParam("comments") String comments
 			, HttpSession session)
 	{
 		int userId = (Integer)session.getAttribute("userId");
-		int postId = 2;
 		int count = postService.addComment(postId, userId, comments);
 		
 		Map<String, String> resultMap = new HashMap<>();

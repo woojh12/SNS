@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jhsns.Sns.post.domain.Post;
+import com.jhsns.Sns.post.dto.CardView;
 import com.jhsns.Sns.post.service.PostService;
 
 import jakarta.servlet.http.HttpSession;
@@ -23,6 +24,7 @@ public class PostController {
 		this.postService = postService;
 	}
 	
+	/* 삭제 테스트 마무리 단계때
 	@GetMapping("/all-list-view")
 	public String allList(Model model
 			, HttpSession session)
@@ -33,6 +35,7 @@ public class PostController {
 		
 		return "post/allList";
 	}
+	*/
 	
 	@GetMapping("/list-view")
 	public String list(Model model
@@ -54,16 +57,12 @@ public class PostController {
 	}
 	
 	@GetMapping("/timeline-view")
-	public String timeLine(@RequestParam("title") String title
-			, @RequestParam("idKey") int idKey
-			, Model model
+	public String timeLine(Model model
 			, HttpSession session)
-	{
-//		int userId = (Integer)session.getAttribute("userId");
+	{	
+		List<CardView> cardViewList = postService.getPostList();
 		
-		Post user = postService.getUser(idKey, title);
-		
-		model.addAttribute("user", user);
+		model.addAttribute("cardViewList", cardViewList);
 		
 		return "post/timeline";
 	}

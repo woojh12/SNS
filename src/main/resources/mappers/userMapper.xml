@@ -40,4 +40,20 @@
  	      AND
  	      `password` = #{password}
  	</select>
+ 	
+ 	<select id="selectUserById" parameterType="int" resultType="com.jhsns.Sns.user.domain.User">
+ 	  SELECT
+ 	       `id`
+          , `loginId`
+          , `password`
+          , `name`
+          , `phone`
+          , `email`
+          , `createdAt`
+          , `updatedAt`
+      FROM
+          `userSns`
+      WHERE
+        `id` = #{id}
+ 	</select>
  </mapper>

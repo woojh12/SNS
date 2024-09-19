@@ -31,7 +31,7 @@
             <div id="noneUseList2"></div>
         </section>
         <footer class="d-flex justify-content-between mt-5">
-        	<button type="button" class="btn btn-secondary btn-lg col-2" id="allListBtn">전체 게시글</button>
+        	<button type="button" class="btn btn-secondary btn-lg col-2" id="timeLineBtn">타임라인</button>
         	<button type="button" class="btn btn-secondary btn-lg col-2" id="createBtn">게시글 작성</button>
             <button type="button" class="btn btn-secondary btn-lg col-2" id="deleteBtn">삭제</button>
         </footer>
@@ -70,8 +70,8 @@
     			});
     		});
     		
-    		$("#allListBtn").on("click", function(){
-    			location.href="/post/all-list-view";
+    		$("#timeLineBtn").on("click", function(){
+    			location.href="/post/timeline-view";
     		});
     		
     		$("#createBtn").on("click", function(){
