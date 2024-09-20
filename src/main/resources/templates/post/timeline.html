@@ -56,7 +56,7 @@
                 </div>
                 
                 <div class="commentsInput bg-info mt-5 d-flex">
-	               <textarea class="form-control timeLine-text" id="textInput"></textarea> 
+	               <textarea class="form-control timeLine-text textInput" th:data-textInputs="'textInput' + ${card.postId}"></textarea> 
 	               <button type="button" class="btn btn-secondary btn-lg col-2 h-25 addBtn" th:data-post-id="${card.postId}">댓글 등록</button>               	
                 </div>
             </div>
@@ -67,24 +67,18 @@
         </footer>
     </div>
     
-    <script th:inline="javascript" layout:fragment="script">
+    <script layout:fragment="script">
     	$(document).ready(function(){
     		$("#moveBtn").on("click", function(){
     			location.href = "/post/list-view";
     		});
     		
     		$(".addBtn").on("click", function(){
-    			let text = $("#textInput").val();
-    			
+    			let text = $(".textInput").data("textInputs");
+    			alert(text);
     			<!-- 여기 postId 추가 -->
     			let post = $(this).data("post-id");
-    			alert("post : " + post);
-    			
-    			if(text == "")
-    			{
-    				alert("댓글을 입력해주세요");
-    			}
-    			
+    			    		   			
     			$.ajax({
     				type:"post"
     				, url:"/post/create-comment"
