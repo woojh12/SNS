@@ -6,8 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.jhsns.Sns.post.domain.Comments;
 import com.jhsns.Sns.post.domain.Post;
 import com.jhsns.Sns.post.dto.CardView;
 import com.jhsns.Sns.post.service.PostService;
@@ -60,9 +60,14 @@ public class PostController {
 	public String timeLine(Model model
 			, HttpSession session)
 	{	
+		// 게시글을 추가하는 게시글 고유 번호와 댓글이 추가될때의 게시글 고유 번호 두개가 필요함.
 		List<CardView> cardViewList = postService.getPostList();
 		
+		List<Comments> commentsList = postService.getAllCommentsList();
+		
 		model.addAttribute("cardViewList", cardViewList);
+		
+		model.addAttribute("commentsList", commentsList);
 		
 		return "post/timeline";
 	}

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,7 @@ public class LikeRestController {
 		this.likeService = likeService;
 	}
 	
+	@PostMapping("/post/like")
 	public Map<String, String> clickLike(@RequestParam("postId") int postId
 			, HttpSession session)
 	{

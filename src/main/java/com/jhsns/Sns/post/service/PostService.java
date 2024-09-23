@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jhsns.Sns.common.FileManager;
+import com.jhsns.Sns.post.domain.Comments;
 import com.jhsns.Sns.post.domain.Post;
 import com.jhsns.Sns.post.dto.CardView;
 import com.jhsns.Sns.post.repository.PostRepository;
@@ -35,9 +36,9 @@ public class PostService {
 		return count;
 	}
 	
-	public int addComment(int postId, int userId, String comments)
+	public int addComment(int postId, int userId, String userName, String comments)
 	{
-		return postRepository.insertComment(postId, userId, comments);
+		return postRepository.insertComment(postId, userId, userName, comments);
 	}
 	
 	// DTO 게시글 정보 가져오기 작성해야함 - 타임라인 기능
@@ -85,5 +86,10 @@ public class PostService {
 	public int removePost(String title)
 	{
 		return postRepository.deletePost(title);
+	}
+	
+	public List<Comments> getAllCommentsList()
+	{
+		return postRepository.selectAllCommentsList();
 	}
 }

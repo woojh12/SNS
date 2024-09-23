@@ -29,17 +29,19 @@
  		(
  			`userId`
  			, `postId`
+ 			, `userName`
  			, `comments`
  		)
  		VALUE
  		(
  			#{userId}
  			, #{postId}
+ 			, #{userName}
  			, #{comments}
  		)
 
   	</insert>
- 	
+ 		
  	<select id="selectAllList" resultType="com.jhsns.Sns.post.domain.Post">
  		SELECT 
  			`id`
@@ -88,6 +90,19 @@
  			`title` = #{title}
  	</select>
  	
+ 	<select id="selectAllCommentsList" resultType="com.jhsns.Sns.post.domain.Comments">
+ 		SELECT
+ 			`id`
+ 			, `postId`
+ 			, `userId`
+ 			, `userName`
+ 			, `comments`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`comments`
+ 	</select>
+ 		
  	<delete id="deletePost" parameterType="string">
  		DELETE
  			

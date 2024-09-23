@@ -6,6 +6,7 @@ public class Comments {
 	private int id;
 	private int postId;
 	private int userId;
+	private String userName;
 	private String comments;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
@@ -27,6 +28,12 @@ public class Comments {
 	}
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public String getComments() {
 		return comments;

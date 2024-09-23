@@ -69,11 +69,6 @@ section > #myList > .user-contents > .user-comments
     width : 555px;
 }
 
-section > #myList > .commentsList
-{
-	height : 350px;
-}
-
 section > #myList > .commentsList > .goodAndHate
 {
 	height : 100px;
@@ -101,16 +96,6 @@ section > #myList > .commentsList > .goodAndHate > #hateCnt
 {
     width : 300px;
     height : 113px;
-}
-
-section > #myList > .commentsList > .otherCommentsList
-{
-	height : 250px;
-}
-
-section > #myList > .commentsList > .otherCommentsList > .otherUser
-{
-	height : 100px;
 }
 
 section > #myList > .commentsList > .otherCommentsList > .otherUser > .otherProfilePicture

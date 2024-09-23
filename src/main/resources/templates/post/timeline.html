@@ -12,7 +12,7 @@
     <div id="wrap" layout:fragment="timeline-contents">
         <section class="d-flex" th:each="card:${cardViewList}">
             <div id="noneUseList1"></div>
-            <div id="myList" class="bg-primary">
+            <div id="myList" class="">
                 <div class="mt-2 user-title bg-info d-flex justify-content-center align-items-center">
                    <h3 th:text="${card.title}">제목</h3>
                 </div>
@@ -28,8 +28,8 @@
                 
                 <div class="commentsList bg-light mt-5">
                     <div class="goodAndHate d-flex">
-                       <div id="good" class="d-flex justify-content-center align-items-center">
-                            <img width="50px" height="50px" src="https://cdn-icons-png.flaticon.com/128/5881/5881249.png">
+                       <div class="ml-2 d-flex justify-content-center align-items-center like" th:data-post-id="${card.postId}">
+                            <img width="50px" height="50px" th:id="'good' + ${card.postId}" src="https://cdn-icons-png.flaticon.com/128/2415/2415237.png">
                        </div> 
                        <div id="goodCnt">
                             <label class="mt-3 ml-3">좋아요</label><br>
@@ -44,18 +44,20 @@
                        </div> 
                     </div>
                     <hr style="border: solid 1px black;">
-                    <div class="otherCommentsList">
+                    <div class="otherCommentsList" th:each="comments:${commentsList}">
                         <div class="otherUser d-flex">
-                            <div class="otherProfilePicture bg-secondary"></div>
-                            <div class="ml-3 otherUserInfo">
-                                <div class="otherUserName bg-dark"></div>
-                                <div class="otherUsercomments bg-warning"></div>
+                            <div class="mt-2 otherProfilePicture">
+                            	<img th:if="${comments.postId} == ${card.postId}" width="100px" src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png">
+                            </div>
+                            <div class="ml-3 mt-2 otherUserInfo">
+                                <div class="otherUserName bg-success" th:if="${comments.postId} == ${card.postId}" th:text="${comments.userName}"></div>
+                                <div class="otherUsercomments bg-warning"  th:if="${comments.postId} == ${card.postId}" th:text="${comments.comments}"></div>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="commentsInput bg-info mt-5 d-flex">
+                <div class="commentsInput mt-5 d-flex">
 	               <input class="form-control timeLine-text" th:id ="'textinput' + ${card.postId}"></input> 
 	               <button type="button" class="btn btn-secondary btn-lg col-2 h-25 addBtn" th:data-post-id="${card.postId}">댓글 등록</button>               	
                 </div>
@@ -78,15 +80,43 @@
     			location.href = "/post/list-view";
     		});
     		
+    		$(".like").on("click", function(){
+    			let post = $(this).data("post-id");
+    			
+    			let likeNum = "good" + post;
+    			
+    			$("#good" + post).attr("src", "https://cdn-icons-png.flaticon.com/128/5881/5881249.png");
+    			
+    			$.ajax({
+    				type:"post"
+    				, url:"/post/like"
+    				, data:{"postId":post}
+    				, success:function(data)
+    				{
+    					if(data.result == "success")
+    					{
+    						locaton.reload();
+    					}
+    					else
+    					{
+    						alert("좋아요 클릭 실패");
+    					}
+    				}
+    				, error:function()
+    				{
+    					alert("좋아요 클릭 에러발생");
+    				}
+    			});
+    		});
+    		
     		$(".addBtn").on("click", function(){
     			let post = $(this).data("post-id");
+ 
     			<!-- 상위태그로 접근하는 방식 -->
     			// let text = $(this).prev().val();
     		  
     			let text = $("#textinput" + post).val();
-    			
-    			alert("text : " + text);
-    			   			
+    			    			   			
     			$.ajax({
     				type:"post"
     				, url:"/post/create-comment"
@@ -95,7 +125,6 @@
     				{
     					if(data.result == "success")
     					{
-    						alert("댓글 추가 완료");
     						location.reload();
     					}
     					else
