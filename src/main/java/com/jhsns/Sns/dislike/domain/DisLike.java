@@ -1,8 +1,8 @@
-package com.jhsns.Sns.like.domain;
+package com.jhsns.Sns.dislike.domain;
 
 import java.time.LocalDateTime;
 
-public class Like {
+public class DisLike {
 	private int id;
 	private int postId;
 	private int userId;

@@ -6,6 +6,8 @@ public class CardView {
 	private String comments;
 	private String imagePath;
 	private String title;
+	private int likeCount;
+	private boolean isLike;
 	
 	public int getPostId() {
 		return postId;
@@ -36,5 +38,17 @@ public class CardView {
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}	
+	}
+	public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+	public boolean isLike() {
+		return isLike;
+	}
+	public void setLike(boolean isLike) {
+		this.isLike = isLike;
+	}
 }

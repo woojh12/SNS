@@ -9,7 +9,7 @@
 <title>게시글 타임라인</title>
 </head>
 <body>
-    <div id="wrap" layout:fragment="timeline-contents">
+    <div id="wrap" layout:fragment="timeline-contents" class="bg-dark"> 
         <section class="d-flex" th:each="card:${cardViewList}">
             <div id="noneUseList1"></div>
             <div id="myList" class="">
@@ -28,12 +28,13 @@
                 
                 <div class="commentsList bg-light mt-5">
                     <div class="goodAndHate d-flex">
-                       <div class="ml-2 d-flex justify-content-center align-items-center like" th:data-post-id="${card.postId}">
-                            <img width="50px" height="50px" th:id="'good' + ${card.postId}" src="https://cdn-icons-png.flaticon.com/128/2415/2415237.png">
+                       <div class="ml-2 d-flex justify-content-center align-items-center like" th:data-post-id="${card.postId}" th:data-like-check="${card.isLike}">
+                            <img width="50px" height="50px" th:unless=${card.isLike} th:id="'good' + ${card.postId}" src="https://cdn-icons-png.flaticon.com/128/2415/2415237.png">
+                            <img width="50px" height="50px" th:if=${card.isLike} th:id="'good' + ${card.postId}" src="https://cdn-icons-png.flaticon.com/128/5881/5881249.png">
                        </div> 
                        <div id="goodCnt">
                             <label class="mt-3 ml-3">좋아요</label><br>
-                            <label class="mt-1 ml-3">123</label>
+                            <label class="mt-1 ml-3" th:text="${card.likeCount}">123</label>
                        </div> 
                        <div id="hate" class="d-flex justify-content-center align-items-center">
                             <img width="60px" height="60px" src="https://cdn-icons-png.flaticon.com/128/4196/4196776.png">
@@ -50,8 +51,8 @@
                             	<img th:if="${comments.postId} == ${card.postId}" width="100px" src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png">
                             </div>
                             <div class="ml-3 mt-2 otherUserInfo">
-                                <div class="otherUserName bg-success" th:if="${comments.postId} == ${card.postId}" th:text="${comments.userName}"></div>
-                                <div class="otherUsercomments bg-warning"  th:if="${comments.postId} == ${card.postId}" th:text="${comments.comments}"></div>
+                                <div class="otherUserName bg-success" th:if="${comments.postId} == ${card.postId}" th:text="${'이름 : ' + comments.userName}"></div>
+                                <div class="otherUsercomments bg-warning"  th:if="${comments.postId} == ${card.postId}" th:text="${'댓글 : ' + comments.comments}"></div>
                             </div>
                         </div>
                     </div>
@@ -84,29 +85,38 @@
     			let post = $(this).data("post-id");
     			
     			let likeNum = "good" + post;
+    		    
+    			let likeCheck = $(this).data("like-check");
     			
-    			$("#good" + post).attr("src", "https://cdn-icons-png.flaticon.com/128/5881/5881249.png");
+    			// 좋아요 클릭시 아이콘 변경
+    			if($("#good" + post).attr("src", "https://cdn-icons-png.flaticon.com/128/2415/2415237.png"))
+    			{
+	    			$("#good" + post).attr("src", "https://cdn-icons-png.flaticon.com/128/5881/5881249.png");
+    			}
     			
-    			$.ajax({
-    				type:"post"
-    				, url:"/post/like"
-    				, data:{"postId":post}
-    				, success:function(data)
-    				{
-    					if(data.result == "success")
-    					{
-    						locaton.reload();
-    					}
-    					else
-    					{
-    						alert("좋아요 클릭 실패");
-    					}
-    				}
-    				, error:function()
-    				{
-    					alert("좋아요 클릭 에러발생");
-    				}
-    			});
+    			if(!likeCheck)
+    			{
+    				$.ajax({
+                        type:"post"
+                        , url:"/post/like"
+                        , data:{"postId":post}
+                        , success:function(data)
+                        {
+                            if(data.result == "success")
+                            {
+                                locaton.reload();
+                            }
+                            else
+                            {
+                                alert("좋아요 클릭 실패");
+                            }
+                        }
+                        , error:function()
+                        {
+                            alert("좋아요 클릭 에러발생");
+                        }
+                    });
+    			}    			
     		});
     		
     		$(".addBtn").on("click", function(){

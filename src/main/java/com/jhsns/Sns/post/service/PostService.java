@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jhsns.Sns.common.FileManager;
+import com.jhsns.Sns.like.service.LikeService;
 import com.jhsns.Sns.post.domain.Comments;
 import com.jhsns.Sns.post.domain.Post;
 import com.jhsns.Sns.post.dto.CardView;
@@ -19,13 +20,16 @@ import com.jhsns.Sns.user.service.UserService;
 public class PostService {
 	private PostRepository postRepository;
 	private UserService userService;
+	private LikeService likeService;
 	
 	@Autowired
 	public PostService(PostRepository postRepository
-			, UserService userService)
+			, UserService userService
+			, LikeService likeService)
 	{
 		this.postRepository = postRepository;
 		this.userService = userService;
+		this.likeService = likeService;
 	}
 	
 	public int addPost(int idKey, String userId, String title, MultipartFile file, String contents)
@@ -42,7 +46,7 @@ public class PostService {
 	}
 	
 	// DTO 게시글 정보 가져오기 작성해야함 - 타임라인 기능
-	public List<CardView> getPostList()
+	public List<CardView> getPostList(int loginUserId)
 	{
 		List<Post> postList = postRepository.selectAllList();
 		List<CardView> cardViewList = new ArrayList<>();
@@ -52,12 +56,18 @@ public class PostService {
 			int userId = post.getIdKey();
 			User user = userService.getUserById(userId);
 			
+			int likeCount = likeService.getLikeCount(post.getId());
+			
+			boolean isLike = likeService.isLikeByUserIdAndPostId(loginUserId, post.getId());
+			
 			CardView cardView = new CardView();
 			cardView.setPostId(post.getId());
 			cardView.setUserId(user.getId());
 			cardView.setComments(post.getContents());
 			cardView.setImagePath(post.getImagePath());
 			cardView.setTitle(post.getTitle());
+			cardView.setLikeCount(likeCount);
+			cardView.setLike(isLike);
 			
 			cardViewList.add(cardView);
 		}
