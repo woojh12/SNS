@@ -13,10 +13,19 @@
         <section class="d-flex" th:each="card:${cardViewList}">
             <div id="noneUseList1"></div>
             <div id="myList" class="">
-                <div class="mt-2 user-title bg-info d-flex justify-content-center align-items-center">
-                   <h3 th:text="${card.title}">제목</h3>
+                <div th:if="${card.userId} == ${session.userId}" class="mt-2 user-title bg-info d-flex justify-content-between align-items-center">
+                   <span></span>
+                   <h3 th:text="${card.title}" class="ml-5">제목</h3>
+                   <div class="mr-3 d-flex align-items-center deleteInput" th:data-title="${card.title}" th:data-userid="${card.userId}" th:data-realuser="${session.userId}" th:if="${card.userId} == ${session.userId}">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                       </svg>
+                       <i class="bi bi-list"></i>
+                   </div>
                 </div>
-                
+                <div th:unless="${card.userId} == ${session.userId}" class="mt-2 user-title bg-info d-flex justify-content-center align-items-center">
+                    <h3 th:text="${card.title}" class="ml-5">제목</h3>                
+                </div>
                 <div class="mt-5 d-flex user-contents">
                     <div class="user-picture bg-secondary">
                     	<img th:src="${card.imagePath}" width="600px" height="350px">   
@@ -79,6 +88,36 @@
     	$(document).ready(function(){
     		$("#moveBtn").on("click", function(){
     			location.href = "/post/list-view";
+    		});
+    		
+    		$(".deleteInput").on("click", function(){
+    			let title = $(this).data("title");
+    			let userId = $(this).data("userid");
+    			let realuser = $(this).data("realuser");
+    			
+    			alert("title : " + title + " userId : " + userId + " realuser : " + realuser);
+    			
+    			$.ajax({
+                    type:"post"
+                    , url:"/post/delete"
+                    , data:{"title":title}
+                    , success:function(data)
+                    {
+                        if(data.result == "success")
+                        {
+                            alert("삭제 완료");
+                            location.reload();
+                        }
+                        else
+                        {
+                            alert("삭제 실패");
+                        }
+                    }
+                    , error:function()
+                    {
+                        alert("삭제 에러 발생");
+                    }
+                });
     		});
     		
     		$(".like").on("click", function(){
