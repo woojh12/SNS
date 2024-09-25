@@ -1,18 +1,16 @@
 package com.jhsns.Sns.post;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.jhsns.Sns.post.domain.Post;
 import com.jhsns.Sns.post.service.PostService;
 
 import jakarta.servlet.http.HttpSession;
@@ -78,10 +76,11 @@ public class PostRestController {
 		return resultMap;
 	}
 		
-	@PostMapping("/delete")
-	public Map<String, String> deletePost(@RequestParam("title") String title)
+	@DeleteMapping("/delete")
+	public Map<String, String> deletePost(@RequestParam("title") String title
+			,@RequestParam("imagePath") String imagePath)
 	{
-		int count = postService.removePost(title);
+		int count = postService.removePost(title,imagePath);
 		
 		Map<String, String> resultMap = new HashMap<>();
 		
@@ -89,9 +88,7 @@ public class PostRestController {
 		{
 			resultMap.put("result", "success");
 		}
-		else
-			
-			
+		else			
 		{
 			resultMap.put("result", "fail");
 		}

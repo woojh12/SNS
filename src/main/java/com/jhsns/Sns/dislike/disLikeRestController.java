@@ -23,7 +23,7 @@ public class disLikeRestController {
 	}
 	
 	@PostMapping("/post/dislike")
-	public Map<String, String> clickLike(@RequestParam("postId") int postId
+	public Map<String, String> clickDisLike(@RequestParam("postId") int postId
 			, HttpSession session)
 	{
 		int userId = (Integer)session.getAttribute("userId");

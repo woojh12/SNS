@@ -1,7 +1,11 @@
 package com.jhsns.Sns.like.repository;
 
+import java.util.Optional;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import com.jhsns.Sns.like.domain.Like;
 
 @Mapper
 public interface LikeRepository {
@@ -11,4 +15,6 @@ public interface LikeRepository {
 	public int selectAllLike(@Param("postId") int postId);
 	
 	public int countByUserIdAndPostId(@Param("userId") int userId, @Param("postId") int postId);
+	
+	public Optional<Like> deleteByPostIdAndUserId(@Param("postId") int postId, @Param("userId") int userId);
 }

@@ -7,6 +7,16 @@
 	margin : 0 auto;
 }
 
+.moreBtn
+{
+	font-size : 30px;
+}
+
+.goodAndHate
+{
+	border-bottom : 1px solid black; 
+}
+
 .timeLine-text
 {
 	height : 85px;

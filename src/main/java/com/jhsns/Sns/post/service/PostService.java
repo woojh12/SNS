@@ -93,9 +93,15 @@ public class PostService {
 		return postRepository.selectUser(idKey, title);
 	}
 	
-	public int removePost(String title)
+	public int removePost(String title, String imagePath)
 	{
-		return postRepository.deletePost(title);
+		int count = 0;
+		if(title != null)
+		{
+			FileManager.removeFile(imagePath);
+			count = postRepository.deletePost(title);
+		}
+		return count;
 	}
 	
 	public List<Comments> getAllCommentsList()

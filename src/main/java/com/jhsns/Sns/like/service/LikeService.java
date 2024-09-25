@@ -1,8 +1,11 @@
 package com.jhsns.Sns.like.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jhsns.Sns.like.domain.Like;
 import com.jhsns.Sns.like.repository.LikeRepository;
 
 @Service
@@ -18,6 +21,18 @@ public class LikeService {
 	public int addLike(int postId, int userId)
 	{
 		return likeRepository.insertLike(postId, userId);
+	}
+	
+	public void deleteLike(int postId, int userId)
+	{
+		Optional<Like> optionalLike = likeRepository.deleteByPostIdAndUserId(postId, userId);
+		Like like = optionalLike.orElse(null);
+		
+		// 여기서부터 다시
+		if(like != null)
+		{
+			likeRepository.deleteByPostIdAndUserId(postId, userId);
+		}
 	}
 	
 	public int getLikeCount(int postId)
