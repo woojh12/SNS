@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.jhsns.Sns.dislike.service.DisLikeService;
+import com.jhsns.Sns.like.service.LikeService;
 import com.jhsns.Sns.post.service.PostService;
 
 import jakarta.servlet.http.HttpSession;
@@ -19,11 +21,17 @@ import jakarta.servlet.http.HttpSession;
 @RestController
 public class PostRestController {
 	private PostService postService;
+	private LikeService likeService;
+	private DisLikeService disLikeService;
 	
 	@Autowired
-	public PostRestController(PostService postService)
+	public PostRestController(PostService postService
+			, LikeService likeService
+			, DisLikeService disLikeService)
 	{
 		this.postService = postService;
+		this.likeService = likeService;
+		this.disLikeService = disLikeService;
 	}
 	
 	// 게시글 작성 API
@@ -75,24 +83,36 @@ public class PostRestController {
 		
 		return resultMap;
 	}
-		
+	
+	// 게시글 삭제 
 	@DeleteMapping("/delete")
 	public Map<String, String> deletePost(@RequestParam("title") String title
-			,@RequestParam("imagePath") String imagePath)
+			, @RequestParam(value="imagePath", required=false) String imagePath
+			, @RequestParam("postId") int postId)
 	{
 		int count = postService.removePost(title,imagePath);
+		int countComments = postService.removeComments(postId);
+		int countLike = likeService.removeLike(postId);
+		int countDisLike = disLikeService.removeDisLike(postId);
 		
 		Map<String, String> resultMap = new HashMap<>();
 		
-		if(count == 1)
+		if(count == 1 && countComments == 1)
 		{
 			resultMap.put("result", "success");
 		}
-		else			
+		else if(count != 1 && countComments == 1)			
 		{
 			resultMap.put("result", "fail");
 		}
-		
+		else if(count == 1 && countComments != 1)			
+		{
+			resultMap.put("result", "success");
+		}
+		else 		
+		{
+			resultMap.put("result", "fail");
+		}
 		return resultMap;
 	}
 }

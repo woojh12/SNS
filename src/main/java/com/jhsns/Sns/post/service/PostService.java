@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jhsns.Sns.common.FileManager;
+import com.jhsns.Sns.dislike.service.DisLikeService;
 import com.jhsns.Sns.like.service.LikeService;
 import com.jhsns.Sns.post.domain.Comments;
 import com.jhsns.Sns.post.domain.Post;
@@ -21,15 +22,18 @@ public class PostService {
 	private PostRepository postRepository;
 	private UserService userService;
 	private LikeService likeService;
+	private DisLikeService disLikeService;
 	
 	@Autowired
 	public PostService(PostRepository postRepository
 			, UserService userService
-			, LikeService likeService)
+			, LikeService likeService
+			, DisLikeService disLikeService)
 	{
 		this.postRepository = postRepository;
 		this.userService = userService;
 		this.likeService = likeService;
+		this.disLikeService = disLikeService;
 	}
 	
 	public int addPost(int idKey, String userId, String title, MultipartFile file, String contents)
@@ -51,14 +55,19 @@ public class PostService {
 		List<Post> postList = postRepository.selectAllList();
 		List<CardView> cardViewList = new ArrayList<>();
 		
+		// 각 게시글의 정보를 얻어오는 곳
 		for(Post post:postList)
 		{
-			int userId = post.getIdKey();
+			int userId = post.getIdKey();	// 게시글 사용자 PK
 			User user = userService.getUserById(userId);
 			
 			int likeCount = likeService.getLikeCount(post.getId());
 			
 			boolean isLike = likeService.isLikeByUserIdAndPostId(loginUserId, post.getId());
+			
+			int disLikeCount = disLikeService.getDisLikeCount(post.getId());
+			
+			boolean disLike = disLikeService.isDisLikeByUserIdAndPostId(loginUserId, post.getId());
 			
 			CardView cardView = new CardView();
 			cardView.setPostId(post.getId());
@@ -68,6 +77,8 @@ public class PostService {
 			cardView.setTitle(post.getTitle());
 			cardView.setLikeCount(likeCount);
 			cardView.setLike(isLike);
+			cardView.setDisLikeCount(disLikeCount);
+			cardView.setDisLike(disLike);
 			
 			cardViewList.add(cardView);
 		}
@@ -102,6 +113,11 @@ public class PostService {
 			count = postRepository.deletePost(title);
 		}
 		return count;
+	}
+	
+	public int removeComments(int postId)
+	{
+		return postRepository.deleteComments(postId);
 	}
 	
 	public List<Comments> getAllCommentsList()

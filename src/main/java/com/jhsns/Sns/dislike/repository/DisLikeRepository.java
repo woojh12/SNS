@@ -11,4 +11,8 @@ public interface DisLikeRepository {
 	public int selectAllDisLike(@Param("postId") int postId);
 	
 	public int countByUserIdAndPostId(@Param("userId") int userId, @Param("postId") int postId);
+	
+	public int deleteByPostIdAndUserId(@Param("postId") int postId, @Param("userId") int userId);
+	
+	public int deleteDisLike(@Param("postId") int postId);
 }

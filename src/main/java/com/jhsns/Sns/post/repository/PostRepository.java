@@ -30,5 +30,7 @@ public interface PostRepository {
 	
 	public int deletePost(@Param("title") String title);
 	
+	public int deleteComments(@Param("postId") int postId);
+	
 	public List<Comments> selectAllCommentsList();
 }

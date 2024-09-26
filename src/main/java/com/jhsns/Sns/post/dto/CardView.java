@@ -8,6 +8,8 @@ public class CardView {
 	private String title;
 	private int likeCount;
 	private boolean isLike;
+	private int disLikeCount;
+	private boolean disLike;
 	
 	public int getPostId() {
 		return postId;
@@ -50,5 +52,17 @@ public class CardView {
 	}
 	public void setLike(boolean isLike) {
 		this.isLike = isLike;
+	}
+	public int getDisLikeCount() {
+		return disLikeCount;
+	}
+	public void setDisLikeCount(int disLikeCount) {
+		this.disLikeCount = disLikeCount;
+	}
+	public boolean isDisLike() {
+		return disLike;
+	}
+	public void setDisLike(boolean disLike) {
+		this.disLike = disLike;
 	}
 }

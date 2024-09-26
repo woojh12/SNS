@@ -44,15 +44,24 @@ public class LikeRestController {
 		return resultMap;
 	}
 	
-	@DeleteMapping("/post/unlike")
+	@PostMapping("/post/unlike")
 	public Map<String, String>unlike(@RequestParam("postId") int postId
 			, HttpSession session)
 	{
 		int userId = (Integer)session.getAttribute("userId");
 		
-		likeService.deleteLike(postId, userId);
+		int count = likeService.deleteLike(postId, userId);
 		
 		Map<String, String> resultMap = new HashMap<>();
+		
+		if(count == 1)
+		{
+			resultMap.put("result", "success");
+		}
+		else
+		{
+			resultMap.put("result", "fail");
+		}
 		
 		return resultMap;
 	}

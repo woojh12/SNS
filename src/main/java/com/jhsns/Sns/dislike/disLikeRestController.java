@@ -42,4 +42,26 @@ public class disLikeRestController {
 		
 		return resultMap;
 	}
+	
+	@PostMapping("/post/undislike")
+	public Map<String, String>unlike(@RequestParam("postId") int postId
+			, HttpSession session)
+	{
+		int userId = (Integer)session.getAttribute("userId");
+		
+		int count = disLikeService.deleteDisLike(postId, userId);
+		
+		Map<String, String> resultMap = new HashMap<>();
+		
+		if(count == 1)
+		{
+			resultMap.put("result", "success");
+		}
+		else
+		{
+			resultMap.put("result", "fail");
+		}
+		
+		return resultMap;
+	}
 }

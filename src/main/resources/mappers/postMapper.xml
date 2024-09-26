@@ -111,4 +111,13 @@
  		WHERE 
  			`title` = #{title}
  	</delete>
+ 	
+ 	<delete id="deleteComments" parameterType="int">
+ 		DELETE
+ 			
+ 		FROM
+ 			`comments`
+ 		WHERE 
+ 			`postId` = #{postId}
+ 	</delete>
  </mapper> 

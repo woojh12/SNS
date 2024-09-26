@@ -20,6 +20,11 @@ public class DisLikeService {
 		return disLikeRepository.insertDisLike(postId, userId);
 	}
 	
+	public int deleteDisLike(int postId, int userId)
+	{
+		return disLikeRepository.deleteByPostIdAndUserId(postId, userId); 
+	}
+	
 	public int getDisLikeCount(int postId)
 	{
 		return disLikeRepository.selectAllDisLike(postId);
@@ -37,5 +42,10 @@ public class DisLikeService {
 		{
 			return true;
 		}
+	}
+	
+	public int removeDisLike(int postId)
+	{
+		return disLikeRepository.deleteDisLike(postId);
 	}
 }

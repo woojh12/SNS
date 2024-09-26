@@ -23,16 +23,9 @@ public class LikeService {
 		return likeRepository.insertLike(postId, userId);
 	}
 	
-	public void deleteLike(int postId, int userId)
+	public int deleteLike(int postId, int userId)
 	{
-		Optional<Like> optionalLike = likeRepository.deleteByPostIdAndUserId(postId, userId);
-		Like like = optionalLike.orElse(null);
-		
-		// 여기서부터 다시
-		if(like != null)
-		{
-			likeRepository.deleteByPostIdAndUserId(postId, userId);
-		}
+		return likeRepository.deleteByPostIdAndUserId(postId, userId); 
 	}
 	
 	public int getLikeCount(int postId)
@@ -54,5 +47,10 @@ public class LikeService {
 		{
 			return true;
 		}
+	}
+	
+	public int removeLike(int postId)
+	{
+		return likeRepository.deleteLike(postId);
 	}
 }

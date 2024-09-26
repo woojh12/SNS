@@ -5,7 +5,7 @@
  <mapper namespace="com.jhsns.Sns.dislike.repository.DisLikeRepository">
     <insert id="insertDisLike" parameterType="map">
         INSERT INTO
-            `like`
+            `dislike`
         (
             `postId`
             , `userId`
@@ -21,7 +21,7 @@
         SELECT
           COUNT(*)
         FROM 
-          `like`
+          `dislike`
          WHERE `postId` = #{postId}
     </select>
     
@@ -29,7 +29,25 @@
       SELECT
           COUNT(*)
         FROM 
-          `like`
+          `dislike`
          WHERE `userId` = #{userId} AND `postId` = #{postId}
     </select>
+    
+    <delete id="deleteByPostIdAndUserId" parameterType="map">
+ 		DELETE
+ 		
+ 		FROM
+ 			`dislike`
+ 		WHERE 
+ 			`userId` = #{userId} AND `postId` = #{postId}
+ 	</delete>
+ 	
+ 	<delete id="deleteDisLike" parameterType="int">
+ 		DELETE
+ 		
+ 		FROM
+ 			`dislike`
+ 		WHERE 
+ 			`postId` = #{postId};
+ 	</delete>
  </mapper>
