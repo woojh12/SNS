@@ -56,4 +56,13 @@
       WHERE
         `id` = #{id}
  	</select>
+ 	
+ 	<select id="countById" parameterType="string">
+ 	  SELECT
+        count(*)
+      FROM
+          `userSns`
+      WHERE
+        `loginId` = #{loginId}
+ 	</select>
  </mapper>

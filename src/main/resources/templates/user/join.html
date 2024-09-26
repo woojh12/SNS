@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div id="noneUse2">
-            	<button type="button" class="btn btn-secondary duplicatedId">중복확인</button>
+            	<button type="button" class="btn btn-secondary duplicatedId" id="checkDuplicatedId">중복확인</button>
             </div>
         </div>
         <div id="responseBtn" class=" d-flex">
@@ -112,6 +112,31 @@
                  		 alert("회원가입 에러");
                  	 }
                  });
+    		});
+    		
+    		$("#checkDuplicatedId").on("click", function(){
+    			let id = $("#idInput").val();
+    			
+    			$.ajax({
+    				type:"post"
+    				, url:"/user/duplicate"
+    				, data:{"loginId":id}
+    		        , success:function(data)
+    		        {
+    		        	if(data.result == "success")
+    		        	{
+    		        		alert("중복되지 않은 아이디 입니다.");
+    		        	}
+    		        	else
+    		        	{
+    		        		alert("중복된 아이디입니다.");
+    		        	}
+    		        }
+    		        , error:function()
+    		        {
+    		        	alert("중복확인 에러");
+    		        }
+    			});
     		});
     	});
     </script>

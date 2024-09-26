@@ -42,4 +42,9 @@ public class UserService {
 	{
 		return userRepository.selectUserById(id);
 	}
+	
+	public int duplicateIdCheck(String loginId)
+	{
+		return userRepository.countById(loginId);
+	}
 }

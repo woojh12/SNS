@@ -20,4 +20,6 @@ public interface UserRepository {
 			);
 	
 	public User selectUserById(@Param("id") int id);
+	
+	public int countById(@Param("loginId") String loginId);
 }

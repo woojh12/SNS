@@ -74,4 +74,23 @@ public class UserRestController {
 		
 		return resultMap;
 	}
+	
+	@PostMapping("/duplicate")
+	public Map<String, String> duplicateId(@RequestParam("loginId") String loginId)
+	{
+		int count = userService.duplicateIdCheck(loginId);
+		
+		Map<String, String> resultMap = new HashMap<>();
+		
+		if(count != 1)
+		{
+			resultMap.put("result", "success");
+		}
+		else
+		{
+			resultMap.put("result", "fail");
+		}
+		
+		return resultMap;
+	}
 }
