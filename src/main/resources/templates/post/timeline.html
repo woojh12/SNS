@@ -21,14 +21,14 @@
                        <i class="bi bi-list moreBtn"></i>
                    </div>
                 </div>
-                <div th:unless="${card.userId} == ${session.userId}" class="mt-2 user-title bg-info d-flex justify-content-center align-items-center">
+                <div th:unless="${card.userId} == ${session.userId}" class="mt-2 user-title  d-flex justify-content-center align-items-center">
                     <h3 th:text="${card.title}" class="ml-5">제목</h3>                
                 </div>
                 <div class="mt-5 d-flex user-contents">
-                    <div class="user-picture bg-secondary">
-                    	<img th:src="${card.imagePath}" width="600px" height="350px">   
+                    <div class="user-picture d-flex align-items-center justify-content-center bg-light">
+                    	<img th:src="${card.imagePath}" width="500px" height="300px">   
                     </div>
-                    <div class="user-comments bg-light">
+                    <div class="user-comments">
                     	<div th:text="${card.comments}"></div>
                     </div>
                 </div>
@@ -59,8 +59,8 @@
                             	<img th:if="${comments.postId} == ${card.postId}" width="100px" src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png">
                             </div>
                             <div class="ml-3 mt-2 otherUserInfo">
-                                <div class="otherUserName bg-success" th:if="${comments.postId} == ${card.postId}" th:text="${'이름 : ' + comments.userName}"></div>
-                                <div class="otherUsercomments bg-warning"  th:if="${comments.postId} == ${card.postId}" th:text="${'댓글 : ' + comments.comments}"></div>
+                                <div class="otherUserName" th:if="${comments.postId} == ${card.postId}" th:text="${'이름 : ' + comments.userName}"></div>
+                                <div class="otherUsercomments"  th:if="${comments.postId} == ${card.postId}" th:text="${'댓글 : ' + comments.comments}"></div>
                             </div>
                         </div>
                     </div>

@@ -82,7 +82,7 @@ public class UserRestController {
 		
 		Map<String, String> resultMap = new HashMap<>();
 		
-		if(count != 1)
+		if(count == 0)
 		{
 			resultMap.put("result", "success");
 		}

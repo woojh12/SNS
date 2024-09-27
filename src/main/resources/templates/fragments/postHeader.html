@@ -3,7 +3,7 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
         <header class="d-flex">
            <img class="p-2 profile-Image ml-5 mt-1" src="https://cdn.pixabay.com/photo/2024/09/05/12/55/white-cheeked-turaco-9024880_640.jpg">            
-           <div th:if="${session.userId != null}" class="p-2 profile-Name bg-info ml-5 mt-3">
+           <div th:if="${session.userId != null}" class="p-2 profile-Name ml-5 mt-3">
                 <label th:text="${session.userName}" class="display-4 ml-3">독수리</label>
            </div>
            <div th:if="${session.userId != null}" class="ml-auto p-2 mt-3">

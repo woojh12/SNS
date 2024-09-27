@@ -16,8 +16,8 @@
             <div id="useArea">
                 <label class="idSpace mt-3">ID</label><br>
                 <div class="d-flex justify-content-center">
-	                <input type="text" class="form-control col-6" id="idInput">                
-                </div>
+	                <input type="text" class="form-control col-6" id="idInput">
+                </div>             
                 <label class="idSpace mt-3">Password</label><br>
                 <div class="d-flex justify-content-center">
                     <input type="password" class="form-control col-6" id="passwordInput">                
@@ -53,6 +53,9 @@
     
     <script layout:fragment="script">
     	$(document).ready(function(){
+    		var isDuplicated = true;
+    		var duplicatedCheck = false;
+    		
     		$("#joinBtn").on("click", function(){
     			let id = $("#idInput").val();
     			let password = $("#passwordInput").val();
@@ -92,30 +95,44 @@
                      return;
                  }
                  
-                 $.ajax({
-                	 type:"post"
-                	 , url:"/user/join"
-                	 , data:{"loginId":id, "password":password, "name":name, "phone":phone, "email":email}
-                 	 , success:function(data){
-                 		 if(data.result == "success")
-                 		 {
-                 			alert("회원가입 완료");
-                 			location.href="/user/login-view";
-                 		 }
-                 		 else
-                 		 {
-                 			 alert("회원가입 실패");
-                 		 }
-                 	 }	
-                 	 , error:function()
-                 	 {
-                 		 alert("회원가입 에러");
-                 	 }
-                 });
+                 if(isDuplicated && duplicatedCheck)
+                 {
+                	 alert("아이디가 중복되었습니다.");
+                 }
+                 
+                 if(!duplicatedCheck)
+                 {
+                	 alert("중복확인 버튼을 눌러주세요.");
+                 }
+                                  
+                 if(!isDuplicated)
+               	 {
+	                 $.ajax({
+	                	 type:"post"
+	                	 , url:"/user/join"
+	                	 , data:{"loginId":id, "password":password, "name":name, "phone":phone, "email":email}
+	                 	 , success:function(data){
+	                 		 if(data.result == "success")
+	                 		 {
+	                 			alert("회원가입 완료");
+	                 			location.href="/user/login-view";
+	                 		 }
+	                 		 else
+	                 		 {
+	                 			 alert("회원가입 실패");
+	                 		 }
+	                 	 }	
+	                 	 , error:function()
+	                 	 {
+	                 		 alert("회원가입 에러");
+	                 	 }
+	                 });                                   	 
+               	 }
     		});
     		
     		$("#checkDuplicatedId").on("click", function(){
     			let id = $("#idInput").val();
+    			duplicatedCheck = true;
     			
     			$.ajax({
     				type:"post"
@@ -125,10 +142,11 @@
     		        {
     		        	if(data.result == "success")
     		        	{
+    		        		isDuplicated = false;
     		        		alert("중복되지 않은 아이디 입니다.");
     		        	}
     		        	else
-    		        	{
+    		        	{   		        		
     		        		alert("중복된 아이디입니다.");
     		        	}
     		        }
